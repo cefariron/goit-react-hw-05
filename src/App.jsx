@@ -1,7 +1,7 @@
 
 
-export const App = () => {
+export default function App () {
 
 
-  return
+  return <div>Hello</div>
 }
