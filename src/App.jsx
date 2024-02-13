@@ -48,14 +48,16 @@ export default function App() {
 
   return (
     <div>
-      <nav className={css.nav}>
-        <NavLink to="/" className={buildLinkClass}>
-          Home
-        </NavLink>
-        <NavLink to="/movies" className={buildLinkClass}>
-          Movies
-        </NavLink>
-      </nav>
+      <header className={css.header}>
+        <nav className={css.nav}>
+          <NavLink to="/" className={buildLinkClass}>
+            Home
+          </NavLink>
+          <NavLink to="/movies" className={buildLinkClass}>
+            Movies
+          </NavLink>
+        </nav>
+      </header>
 
       <Routes>
         <Route path="/" element={<HomePage />} />
