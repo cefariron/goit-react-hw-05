@@ -1,5 +1,5 @@
 import { PiSmileySad } from "react-icons/pi";
-import css from './NotFoundPage.module.css';
+import css from "./NotFoundPage.module.css";
 
 export const NotFoundPage = ({ children }) => {
   return (

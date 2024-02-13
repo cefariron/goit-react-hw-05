@@ -32,18 +32,20 @@ export const MovieReviews = () => {
   return (
     <div className={css.container}>
       <div className={css.loader}>{loader && <ClipLoader />}</div>
-      {error && <NotFoundPage>
-        Ooops! Something is wrong... Please try again or go back.
-        </NotFoundPage>}
-        {reviews.length === 0 && (<NotFoundPage>
-        We dont have any reviews for this movie.
-        </NotFoundPage>)}
+      {error && (
+        <NotFoundPage>
+          Ooops! Something is wrong... Please try again or go back.
+        </NotFoundPage>
+      )}
+      {reviews.length === 0 && (
+        <NotFoundPage>We dont have any reviews for this movie.</NotFoundPage>
+      )}
       <ul className={css.list}>
-        {reviews.map(review => {
+        {reviews.map((review) => {
           return (
             <li className={css.item} key={review.id}>
-                <h4 className={css.autorName}>Author: {review.author}</h4>
-                <p className={css.reviewsText}>{review.content}</p>
+              <h4 className={css.autorName}>Author: {review.author}</h4>
+              <p className={css.reviewsText}>{review.content}</p>
             </li>
           );
         })}

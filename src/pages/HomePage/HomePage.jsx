@@ -1,7 +1,7 @@
 import { MovieListItem } from "../../components/MovieListItem/MovieListItem";
 import css from "./HomePage.module.css";
 
-export const HomePage = ({ movies }) => {
+export default function HomePage({ movies }) {
   return (
     <div>
       <h1 className={css.title}>Trending Movies</h1>

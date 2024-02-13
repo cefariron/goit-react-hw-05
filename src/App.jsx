@@ -1,19 +1,17 @@
-import { Routes, Route, NavLink } from "react-router-dom";
-import clsx from "clsx";
+import { Routes, Route } from "react-router-dom";
 import { getTrendMovie } from "./api/api.js";
-import { useEffect, useState } from "react";
-import { HomePage } from "./pages/HomePage/HomePage.jsx";
-import { MoviesPage } from "./pages/MoviesPage/MoviesPage.jsx";
-import { MovieDetailsPage } from "./pages/MovieDetailsPage/MovieDetailsPage.jsx";
+import { useEffect, useState, lazy, Suspense } from "react";
+import { Navbar } from "./components/Navbar/Navbar.jsx";
 import { MovieCast } from "./components/MovieCast/MovieCast.jsx";
 import { MovieReviews } from "./components/MovieReviews/MovieReviews.jsx";
 import { NotFoundPage } from "./pages/NotFoundPage/NotFoundPage.jsx";
 import ClipLoader from "react-spinners/ClipLoader";
 import css from "./App.module.css";
 
-const buildLinkClass = ({ isActive }) => {
-  return clsx(css.link, isActive && css.active);
-};
+const HomePage = lazy(() => import("./pages/HomePage/HomePage.jsx"));
+const MoviesPage = lazy(() => import("./pages/MoviesPage/MoviesPage.jsx"));
+const MovieDetailsPage = lazy(() => import("./pages/MovieDetailsPage/MovieDetailsPage.jsx"));
+
 
 export default function App() {
   const [movies, setMovies] = useState([]);
@@ -38,7 +36,7 @@ export default function App() {
           setError(true);
         }
       } finally {
-        setLoader(false)
+        setLoader(false);
       }
     }
 
@@ -52,31 +50,25 @@ export default function App() {
   return (
     <div>
       <div className={css.loader}>{loader && <ClipLoader />}</div>
-      {error && <NotFoundPage>
-        Ooops! Something is wrong... Please refresh page!
-        </NotFoundPage>}
-      <header className={css.header}>
-        <nav className={css.nav}>
-          <NavLink to="/" className={buildLinkClass}>
-            Home
-          </NavLink>
-          <NavLink to="/movies" className={buildLinkClass}>
-            Movies
-          </NavLink>
-        </nav>
-      </header>
+      {error && (
+        <NotFoundPage>
+          Ooops! Something is wrong... Please refresh page!
+        </NotFoundPage>
+      )}
 
-
-
-      <Routes>
-        <Route path="/" element={<HomePage movies={movies}/>} />
-        <Route path="/movies" element={<MoviesPage />} />
-        <Route path="/movies/:movieId" element={<MovieDetailsPage />}>
-          <Route path="cast" element={<MovieCast />} />
-          <Route path="reviews" element={<MovieReviews />} />
-        </Route>
-        <Route path="*" element={<NotFoundPage />} />
-      </Routes>
+      <Navbar />
+      
+      <Suspense fallback={<ClipLoader/>}>
+        <Routes>
+          <Route path="/" element={<HomePage movies={movies} />} />
+          <Route path="/movies" element={<MoviesPage />} />
+          <Route path="/movies/:movieId" element={<MovieDetailsPage />}>
+            <Route path="cast" element={<MovieCast />} />
+            <Route path="reviews" element={<MovieReviews />} />
+          </Route>
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+      </Suspense>
     </div>
   );
 }

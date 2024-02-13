@@ -1,10 +1,4 @@
-import {
-  useLocation,
-  useParams,
-  Link,
-  NavLink,
-  Outlet,
-} from "react-router-dom";
+import { useLocation, useParams, Link, NavLink, Outlet } from "react-router-dom";
 import { IoArrowBack } from "react-icons/io5";
 import { getMovieById } from "../../api/api";
 import { useRef, useEffect, useState } from "react";
@@ -18,7 +12,7 @@ const linkClass = ({ isActive }) => {
   return clsx(css.link, isActive && css.active);
 };
 
-export const MovieDetailsPage = () => {
+export default function MovieDetailsPage() {
   const location = useLocation();
   const backLinkRef = useRef(location.state);
   const { movieId } = useParams();
@@ -67,9 +61,11 @@ export const MovieDetailsPage = () => {
 
       <div className={css.loader}>{loader && <ClipLoader />}</div>
 
-      {error && <NotFoundPage>
-        Ooops! Something is wrong... Please refresh page or go back.
-        </NotFoundPage>}
+      {error && (
+        <NotFoundPage>
+          Ooops! Something is wrong... Please refresh page or go back.
+        </NotFoundPage>
+      )}
 
       {Object.keys(movie).length > 0 && (
         <MovieDetails
@@ -94,7 +90,7 @@ export const MovieDetailsPage = () => {
         </div>
       )}
 
-      <Outlet />
+        <Outlet />
     </div>
   );
-};
+}
