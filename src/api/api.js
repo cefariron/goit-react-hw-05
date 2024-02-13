@@ -63,12 +63,12 @@ export const getMovieReviewsById = async (movieId) => {
   return response.data;
 };
 
-export const getMovieReviewsBySearch = async ({ query, page }) => {
+export const getMovieReviewsBySearch = async (query) => {
   const options = {
     method: "GET",
     headers,
     url: `search/movie`,
-    params: { include_adult: false, language: "en-US", query, page },
+    params: { include_adult: false, language: "en-US", query },
   };
 
   const response = await axios(options);

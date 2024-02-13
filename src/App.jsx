@@ -8,6 +8,7 @@ import { MovieDetailsPage } from "./pages/MovieDetailsPage/MovieDetailsPage.jsx"
 import { MovieCast } from "./components/MovieCast/MovieCast.jsx";
 import { MovieReviews } from "./components/MovieReviews/MovieReviews.jsx";
 import { NotFoundPage } from "./pages/NotFoundPage/NotFoundPage.jsx";
+import ClipLoader from "react-spinners/ClipLoader";
 import css from "./App.module.css";
 
 const buildLinkClass = ({ isActive }) => {
@@ -17,12 +18,15 @@ const buildLinkClass = ({ isActive }) => {
 export default function App() {
   const [movies, setMovies] = useState([]);
   const [error, setError] = useState(false);
+  const [loader, setLoader] = useState(false);
 
   useEffect(() => {
     const controller = new AbortController();
 
     async function fetchData() {
       try {
+        setError(false);
+        setLoader(true);
         const fetchedMovies = await getTrendMovie({
           page: "1",
           abortController: controller,
@@ -33,6 +37,8 @@ export default function App() {
           console.log(error.message);
           setError(true);
         }
+      } finally {
+        setLoader(false)
       }
     }
 
@@ -45,6 +51,10 @@ export default function App() {
 
   return (
     <div>
+      <div className={css.loader}>{loader && <ClipLoader />}</div>
+      {error && <NotFoundPage>
+        Ooops! Something is wrong... Please refresh page!
+        </NotFoundPage>}
       <header className={css.header}>
         <nav className={css.nav}>
           <NavLink to="/" className={buildLinkClass}>
@@ -56,8 +66,10 @@ export default function App() {
         </nav>
       </header>
 
+
+
       <Routes>
-        <Route path="/" element={<HomePage movies={movies} />} />
+        <Route path="/" element={<HomePage movies={movies}/>} />
         <Route path="/movies" element={<MoviesPage />} />
         <Route path="/movies/:movieId" element={<MovieDetailsPage />}>
           <Route path="cast" element={<MovieCast />} />

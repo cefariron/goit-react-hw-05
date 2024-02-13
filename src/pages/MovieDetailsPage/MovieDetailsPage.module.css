@@ -13,25 +13,25 @@
     height: 20px;
 }
 
-.poster {
-    width: 250px;
-    height: 375px;
-
-    border-radius: 4px;
+.loader {
+    width: 100px;
+    margin: 0 auto;
 }
 
-.movieContainer {
-    display: flex;
-    gap: 20px;
-}
-
-.title,
-.rating,
-.overview {
-    margin-bottom: 20px;
-}
-
-.titleOverview,
-.titleGenres {
+.addTitle {
     margin-bottom: 10px;
+}
+
+.linkContainer {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.active {
+    color: blue;
+}
+
+.link {
+    text-decoration: underline;
 }

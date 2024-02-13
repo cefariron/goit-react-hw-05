@@ -1,0 +1,11 @@
+.form {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.input {
+    width: 250px;
+    padding: 5px;
+    outline: none;
+}

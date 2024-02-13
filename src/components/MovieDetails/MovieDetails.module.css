@@ -1,0 +1,23 @@
+.poster {
+    width: 250px;
+    height: 375px;
+
+    border-radius: 4px;
+}
+
+.movieContainer {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 10px;
+}
+
+.title,
+.rating,
+.overview {
+    margin-bottom: 20px;
+}
+
+.titleOverview,
+.titleGenres {
+    margin-bottom: 10px;
+}
