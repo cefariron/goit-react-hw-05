@@ -1,3 +1,3 @@
 export const MovieCast = () => {
-    return
+    return <div>CAST</div>
 }

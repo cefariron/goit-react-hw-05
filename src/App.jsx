@@ -4,7 +4,7 @@ import { getTrendMovie } from "./api/api.js";
 import { useEffect, useState } from "react";
 import { HomePage } from "./pages/HomePage/HomePage.jsx";
 import { MoviesPage } from "./pages/MoviesPage/MoviesPage.jsx";
-import { MoviesDetailsPage } from "./pages/MovieDetailsPage/MovieDetailsPage.jsx";
+import { MovieDetailsPage } from "./pages/MovieDetailsPage/MovieDetailsPage.jsx";
 import { MovieCast } from "./components/MovieCast/MovieCast.jsx";
 import { MovieReviews } from "./components/MovieReviews/MovieReviews.jsx";
 import { NotFoundPage } from "./pages/NotFoundPage/NotFoundPage.jsx";
@@ -27,7 +27,6 @@ export default function App() {
           page: "1",
           abortController: controller,
         });
-        // console.log(fetchedMovies);
         setMovies(fetchedMovies.results);
       } catch (error) {
         if (error.code !== "ERR_CANCELED") {
@@ -44,8 +43,6 @@ export default function App() {
     };
   }, []);
 
-  // console.log(movies);
-
   return (
     <div>
       <header className={css.header}>
@@ -60,29 +57,14 @@ export default function App() {
       </header>
 
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route path="/" element={<HomePage movies={movies} />} />
         <Route path="/movies" element={<MoviesPage />} />
-        <Route path="/movies/:movieId" element={<MoviesDetailsPage />} />
-        <Route path="/movies/:movieId/cast" element={<MovieCast />} />
-        <Route path="/movies/:movieId/reviews" element={<MovieReviews />} />
+        <Route path="/movies/:movieId" element={<MovieDetailsPage />}>
+          <Route path="cast" element={<MovieCast />} />
+          <Route path="reviews" element={<MovieReviews />} />
+        </Route>
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </div>
-
-    // <div>
-    //   <h1>Trending Movies</h1>
-    //   <ul>
-    //     {movies.map(movie => {
-    //       const imgUrl = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
-
-    //       return <li key={movie.id}>
-    //         <div>
-    //           <h3>{movie.title}</h3>
-    //           <img src={imgUrl} alt={movie.title} width={200} height={300}/>
-    //         </div>
-    //       </li>
-    //     })}
-    //   </ul>
-    // </div>
   );
 }
