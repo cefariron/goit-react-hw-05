@@ -14,4 +14,4 @@ export default function HomePage({ movies }) {
       </ul>
     </div>
   );
-};
+}
